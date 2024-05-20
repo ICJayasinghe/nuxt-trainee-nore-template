@@ -22,5 +22,4 @@
   };
   
   onMounted(fetchProduct);
-  </script>
-  
+</script>

@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'NORA',
+      title: 'N O R A R E E D',
       meta: [
         {name: 'description', content: 'Nora Website'}
       ]
