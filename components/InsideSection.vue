@@ -10,24 +10,24 @@
 
     <div class="py-12">
       <div class="flex space-x-4 pb-10 md:pb-20 pl-5">
-      <div class="relative">
-        <button @click="toggleDropdown" class="bg-white border px-8 py-4 rounded flex items-center space-x-2">
-          <span class="font-bold text-xs text-gray-700">{{ selectedSort }}</span>
-          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
-          </svg>
-        </button>
-        <div v-if="dropdownOpen" class="absolute mt-1 bg-white border rounded shadow-lg w-full z-10">
-          <button v-for="option in sortOptions" :key="option" @click="selectSort(option)" class="block w-full text-xs text-left px-4 py-2 hover:bg-blue-600">
-            {{ option }}
+        <div class="relative">
+          <button @click="toggleDropdown" class="bg-white border px-8 py-4 rounded flex items-center space-x-2">
+            <span class="font-bold text-xs text-gray-700">{{ selectedSort }}</span>
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
+            </svg>
           </button>
+          <div v-if="dropdownOpen" class="absolute mt-1 bg-white border rounded shadow-lg w-full z-10">
+            <button v-for="option in sortOptions" :key="option" @click="selectSort(option)" class="block w-full text-xs text-left px-4 py-2 hover:bg-blue-600">
+              {{ option }}
+            </button>
+          </div>
         </div>
-      </div>
 
-      <button class="font-bold text-xs text-gray-700 border px-8 py-4 rounded">
-        Filter
-      </button>
-    </div>
+        <button @click="toggleFilter" class="font-bold text-xs text-gray-700 border px-8 py-4 rounded">
+          Filter
+        </button>
+      </div>
 
       <section>
         <div class="container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -63,10 +63,14 @@
       </section>
     </div>
   </div>
+
+  <transition name="slide-right">
+    <FilterOption v-if="isFilterOn" @close="isFilterOn = false"/>
+  </transition>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, watchEffect } from 'vue';
 import ProductCard from '~/components/ProductCard.vue';
 
 type Product = {
@@ -105,7 +109,6 @@ const selectSort = (option: string) => {
 
 const fetchProducts = async () => {
   try {
-
     const orderMapping: { [key: string]: string } = {
       'Newest': 'NEWEST',
       'Popularity': 'POPULARITY',
@@ -155,17 +158,27 @@ const fetchProducts = async () => {
   return products;
 };
 
+// Fetch products on component mount and watch for changes in props or sorting
 onMounted(fetchProducts);
 watch(() => [props.type, props.catpath, selectedSort.value], fetchProducts);
+
+// Watch the endpointid to ensure the component re-renders on route change
+watchEffect(() => {
+  fetchProducts();
+});
+
+const isFilterOn = ref(false);
+
+const toggleFilter = () => {
+  isFilterOn.value = !isFilterOn.value;
+};
 </script>
 
 <style scoped>
-
 .slide-right-enter-active, .slide-right-leave-active {
   transition: transform 0.5s ease-in-out;
 }
 .slide-right-enter, .slide-right-leave-to {
   transform: translateX(100%);
 }
-
 </style>
