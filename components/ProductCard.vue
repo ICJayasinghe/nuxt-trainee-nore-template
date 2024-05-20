@@ -1,5 +1,5 @@
 <template>
-  <div class="relative px-3 text-xs font-bold">
+  <NuxtLink :to="`/products/${id}`" class="relative px-3 text-xs font-bold">
     <img :src="src" alt="product-img" class="w-full">
     <div v-if="discountPercentage" class="absolute top-2 right-5 bg-red-500 text-white px-2 py-3 rounded-full">
       -{{ discountPercentage }}%
@@ -15,11 +15,10 @@
         <img class="w-12" alt="intpay" src="https://greencoding.b-cdn.net/norareedfashion.com/front-end-asseta/mp.svg">
       </div>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps({
   src: String,
   name: String,
@@ -27,6 +26,6 @@ const props = defineProps({
   discount: String,
   installment: String,
   discountPercentage: Number,
+  id: String, // Add id prop for navigation
 });
-
 </script>

@@ -46,6 +46,10 @@ const updateState = () => {
       category.value = 'Blouses';
       catpath.value = 'SHOP NOW, TOPS';
       break;
+    case 'AADARAYA':
+      category.value = 'Aadaraya';
+      catpath.value = 'SHOP NOW, BOTTOMS';
+      break;
     case 'KIDS WEAR':
       category.value = 'Kids Wear';
       catpath.value = 'SHOP NOW, KIDS WEAR';
