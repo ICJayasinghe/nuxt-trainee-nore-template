@@ -16,7 +16,7 @@
         <div class="flex-grow mt-6 px-3 overflow-y-auto">
           <ul class="flex flex-col space-y-4 list-inside font-bold text-xs tracking-wide">
             <NuxtLink to="/collections/NewArrivals/" @click="emit('close')">
-              <li class="border-b pb-4 px-4">NEW ARRIVALS</li>
+              <li class="text-black border-b pb-4 px-4">NEW ARRIVALS</li>
             </NuxtLink>
                 <NavBarCard
                   v-for="category in variables.categories"
@@ -27,7 +27,7 @@
                   @click="emit('close')"
                 />
             <NuxtLink to="/collections/Offers/" @click="emit('close')">
-              <li class="border-b pb-4 px-4">SALE</li>
+              <li class="text-black border-b pb-4 px-4">SALE</li>
             </NuxtLink>
           </ul>
         </div>

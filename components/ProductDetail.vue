@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-4 py-8">
-    <div class="flex flex-col md:flex-row">
+    <div v-if="productLoaded" class="flex flex-col md:flex-row">
       <!-- Product Image Gallery -->
       <div class="w-full md:w-1/2">
         <div class="flex flex-col space-y-2">
@@ -90,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 interface Product {
   id: string;
@@ -109,10 +109,26 @@ interface Product {
 
 const props = defineProps<{ product: Product }>();
 
-const mainImage = ref(props.product.images[0]);
-const selectedSize = ref(props.product.sizes[0]);
+// Reactive state for the main image and selected size
+const mainImage = ref('');
+const selectedSize = ref('');
 const quantity = ref(1);
+const productLoaded = ref(false);
 
+// Watch the product prop and initialize the state
+watch(
+  () => props.product,
+  (newProduct) => {
+    if (newProduct && newProduct.images && newProduct.images.length > 0) {
+      mainImage.value = newProduct.images[0];
+      selectedSize.value = newProduct.sizes[0];
+      productLoaded.value = true;
+    }
+  },
+  { immediate: true }
+);
+
+// Functions to increase and decrease quantity
 const decreaseQuantity = () => {
   if (quantity.value > 1) quantity.value--;
 };
@@ -121,6 +137,8 @@ const increaseQuantity = () => {
   quantity.value++;
 };
 
+// Computed properties for formatted price and installment
 const formattedPrice = computed(() => `LKR ${props.product.price}.00`);
 const formattedInstallment = computed(() => `LKR ${props.product.installment} x 3 with Mintpay`);
 </script>
+

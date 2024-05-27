@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white text-black">
     <nav class="px-3 py-5 border-b-[1px] border-gray-100">
       <div class="flex container mx-auto items-center text-gray-500 font-bold text-xs space-x-1">
         <span>Home</span> <p>|</p>
@@ -8,10 +8,10 @@
       </div>
     </nav>
 
-    <div class="py-12">
-      <div class="flex space-x-4 pb-10 md:pb-20 pl-5">
+    <div>
+      <div class="flex space-x-4 pb-10 md:pb-20 pt-20 md:pt-12">
         <div class="relative">
-          <button @click="toggleDropdown" class="bg-white border px-8 py-4 rounded flex items-center space-x-2">
+          <button @click="toggleDropdown" class="bg-white border px-10 py-4 rounded flex items-center space-x-2">
             <span class="font-bold text-xs text-gray-700">{{ selectedSort }}</span>
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
@@ -24,9 +24,8 @@
           </div>
         </div>
 
-        <button @click="toggleFilter" class="font-bold text-xs text-gray-700 border px-8 py-4 rounded">
-          Filter
-        </button>
+        <UButton color="black" label="Filter" @click="isOpen = true" class="font-bold text-xs text-gray-700 border px-8 py-4 rounded"/>
+
       </div>
 
       <section>
@@ -43,35 +42,65 @@
           />
         </div>
 
-        <div class="flex items-center justify-center mt-8 pb-14 md:pb-12">
-          <div class="flex items-center space-x-2">
-            <button>
-              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M18.29 17.29a.996.996 0 0 0 0-1.41L14.42 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L12.3 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.38.38 1.01.38 1.4-.01"/><path fill="currentColor" d="M11.7 17.29a.996.996 0 0 0 0-1.41L7.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L5.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.38.38 1.01.38 1.4-.01"/>
-              </svg>
-            </button>
-            <button class="aspect-square w-8 border-[1px] bg-black text-white duration-300"> 1 </button>
-            <button class="aspect-square w-8 border-[1px] bg-white text-black hover:bg-black hover:text-white duration-300"> 2 </button>
-            <button>
-              <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M9.575 12L5 7.4L6.4 6l6 6l-6 6L5 16.6zm6.6 0L11.6 7.4L13 6l6 6l-6 6l-1.4-1.4z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
+
+        <UPagination class="flex justify-center mb-16"
+        v-model="page"
+        :page-count="24" 
+        :max="5" 
+        :total="items.length"
+        :to="(page: number) => ({
+            query: { page },
+            hash: 'https://gcp-store-shared1.greencloudpos.com/norareedfashion.com/store_data',
+          })"
+        />
+        
         <div class="border-t border-gray-200 w-full"></div>
+
       </section>
     </div>
   </div>
 
-  <transition name="slide-right">
-    <FilterOption v-if="isFilterOn" @close="isFilterOn = false"/>
-  </transition>
+  <USlideover v-model="isOpen">
+      <UCard class="flex flex-col flex-1 text-black" :ui="{ body: { base: 'flex-1 bg-white' }, }">
+          <div class="flex justify-between items-center text-sm font-bold bg-white">
+            <p>Filter</p>
+            <svg @click="closeSlideover" class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                <path d="M5.47 5.47a.75.75 0 0 1 1.06 0l12 12a.75.75 0 1 1-1.06 1.06l-12-12a.75.75 0 0 1 0-1.06"/>
+                <path d="M18.53 5.47a.75.75 0 0 1 0 1.06l-12 12a.75.75 0 0 1-1.06-1.06l12-12a.75.75 0 0 1 1.06 0"/>
+              </g>
+            </svg>
+          </div>
+
+
+          <div class="flex-grow overflow-y-auto overflow-x-hidden mb-10 mt-4 bg-white">
+            <div class="flex items-center mb-4 space-x-3 justify-between">
+              <p class="text-xs font-bold uppercase"> Categories </p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-6 text-xs font-bold text-center mb-8 md:mb-16">
+              <NuxtLink to="/stores/DRESSES/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Dresses </NuxtLink>
+              <NuxtLink to="/stores/SKIRTS/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Skirts </NuxtLink>
+              <NuxtLink to="/stores/JUMPSUITS & ROMPERS/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Jumpsuits & Rompers </NuxtLink>
+              <NuxtLink to="/stores/PANTS & SHORTS/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Pants & Shorts </NuxtLink>
+              <NuxtLink to="/stores/BLOUSES/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Blouses </NuxtLink>
+              <NuxtLink to="/stores/TEE SHIRTS/" class="duration-300 hover:bg-black hover:text-white py-2 border border-gray-100"> Tee Shirts </NuxtLink>
+            </div>
+          </div>
+
+          <div class="flex p-3 justify-center mt-80 md:mt-96 bg-white">
+            <button @click="clearFilters" class="flex-grow p-3 bg-black text-white text-xs font-bold active:bg-white tracking-wider">Clear All Filters</button>
+          </div>
+      </UCard>
+    </USlideover>
+      
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, watch, watchEffect } from 'vue';
 import ProductCard from '~/components/ProductCard.vue';
+
+const page = ref(1)
+const items = ref(Array(240))
 
 type Product = {
   id: number;
@@ -152,6 +181,7 @@ const fetchProducts = async () => {
         img: imgUrl.length > 0 ? imgUrl[0] : '',
       };
     });
+
   } catch (error) {
     console.error('Error fetching products:', error);
   }
@@ -167,12 +197,18 @@ watchEffect(() => {
   fetchProducts();
 });
 
-const isFilterOn = ref(false);
+const isOpen = ref(false);
 
-const toggleFilter = () => {
-  isFilterOn.value = !isFilterOn.value;
-};
+function closeSlideover() {
+  isOpen.value = false;
+}
+
+function clearFilters() {
+  // Your clear filters logic here
+  closeSlideover();
+}
 </script>
+
 
 <style scoped>
 .slide-right-enter-active, .slide-right-leave-active {

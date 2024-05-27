@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full bg-white">
     <div class="grid grid-col-1 md:grid-cols-4 font-bold py-8 md:py-12 mx-3 md:mx-5">
       
       
@@ -14,7 +14,7 @@
       </div>
 
       
-      <div class="col-span-1">
+      <div class="col-span-1 text-black">
         <div class="space-y-5 pb-8 md:pb-0 md:pl-28">
           <p>INFORMATION</p>
           <ul class="text-xs text-gray-500 space-y-4">
@@ -28,7 +28,7 @@
       </div>
       
       
-      <div class="col-span-1">
+      <div class="col-span-1 text-black">
         <div class="space-y-5 pb-8 md:pb-0 md:pl-28">
           <p>FOLLOW US ON</p>
           <div class="flex">
@@ -46,7 +46,7 @@
       </div>
     
       
-      <div class="col-span-1">
+      <div class="col-span-1 text-black">
         <div class="space-y-5 pb-5 md:pb-0 md:pl-24">
           <p>CONTACT US</p>
           <ul class="text-xs text-gray-500 space-y-4">

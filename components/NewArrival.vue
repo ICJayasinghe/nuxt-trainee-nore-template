@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <div class="my-8 w-full">
+    <div class="bg-white text-black">
+      <div class="py-8 w-full">
         <p class="font-bold text-2xl md:text-5xl uppercase text-center">New Arrivals</p>
       </div>
       <div class="border-b border-gray-300 mb-12"></div>

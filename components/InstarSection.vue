@@ -4,9 +4,9 @@
         <div class="flex justify-center md:mx-5">
             <div class="flex flex-col justify-center items-center">
                 <img src="~/assets/instar.png" class="w-36 h-32 md:w-48 md:h-40" alt="Logo">
-                <h2 class="text-center font-bold text-lg">NORAREED</h2>
+                <h2 class="text-center font-bold text-lg text-black">NORAREED</h2>
                 <h2 class="text-center font-bold text-gray-700 text-xs">Clothing (brand)</h2>
-                <h2 class="text-center font-bold text-xl md:text-3xl mt-3">SHOP THE 'GRAM</h2>
+                <h2 class="text-center font-bold text-xl md:text-3xl mt-3 text-black">SHOP THE 'GRAM</h2>
                 <div class="mt-5 mb-10">
                     <button class="bg-black text-white py-4 px-12 text-xs font-bold">Follow Us</button>
                 </div>

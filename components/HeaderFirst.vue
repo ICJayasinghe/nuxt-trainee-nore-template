@@ -12,7 +12,7 @@
 
       <div class="flex flex-grow justify-end space-x-5">
           <div class="px-5 py-3 hidden lg:flex flex-grow max-w-lg bg-white rounded-full items-center space-x-3">
-            <input type="search" class=" flex-grow border-none focus:outline-none text-xs font-semibold placeholder:text-sm" placeholder="I am looking for..." >
+            <input type="search" class="bg-white text-black flex-grow border-none focus:outline-none text-xs font-semibold placeholder:text-sm" placeholder="I am looking for..." >
               <div class="flex">
                   <button type="submit" class="focus:outline-none">
                     <svg class="text-black w-6 h-6" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@
               </div> 
           </div>
 
-        <div class="flex text-xs font-bold gap-4 md:gap-5 items-center" >
+        <div class="text-black flex text-xs font-bold gap-4 md:gap-5 items-center" >
             <p>LKR</p>
             <button>
               <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">

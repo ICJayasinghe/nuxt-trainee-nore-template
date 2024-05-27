@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full bg-white text-black">
         <div class="border-b border-gray-300 mb-8"></div>
         <div class="my-8">
             <p class="font-bold text-2xl md:text-5xl uppercase text-center">OUR BEST SELLERS</p>

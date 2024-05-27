@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="bg-white text-black">
     <ProductDetail v-if="product" :product="product" />
-    <div v-else>Loading...</div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
@@ -29,20 +29,46 @@ interface Product {
 const route = useRoute();
 const product = ref<Product | null>(null);
 
+// Function to fetch product data
+const fetchProduct = async (productId: string) => {
+  try {
+    const { data, error } = await useFetch<Product>(`https://gcp-store-shared1.greencloudpos.com/norareedfashion.com/store_data/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        currency_code: 'LKR', 
+        id: productId,
+
+      }),
+    });
+
+    if (error.value) {
+      throw new Error(error.value.message);
+    }
+
+    if (data.value) {
+      product.value = data.value;
+    } else {
+      product.value = null;
+    }
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    product.value = null;
+  }
+};
+
 // Watch for changes in the route parameters
 watch(
   () => route.params.id,
   async (newId) => {
     if (newId) {
-      const { data, error } = await useFetch<Product>(`https://gcp-store-shared1.greencloudpos.com/norareedfashion.com/store_data/${newId}`);
-
-      if (data.value) {
-        product.value = data.value;
-      } else if (error.value) {
-        console.error('Error fetching product:', error.value);
-      }
+      await fetchProduct(newId as string);
     }
   },
   { immediate: true }
 );
 </script>
+
